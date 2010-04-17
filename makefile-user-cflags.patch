@@ -1,0 +1,14 @@
+--- libfetch-2.26-orig/Makefile.linux	2009-11-19 17:27:00.000000000 +0100
++++ libfetch-2.26/Makefile.linux	2010-04-17 14:18:16.360266787 +0200
+@@ -6,9 +6,10 @@
+ 
+ WARNINGS = -Wall -Wstrict-prototypes -Wsign-compare -Wchar-subscripts \
+ 	   -Wpointer-arith -Wcast-align -Wsign-compare
+-CFLAGS   = -O2 -pipe -I. -fPIC $(WARNINGS) \
++CFLAGS   = -I. -fPIC $(WARNINGS) \
+ 	   -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES
+ 
++CFLAGS  += $(USERCFLAGS)
+ CFLAGS	+= -DFTP_COMBINE_CWDS -DNETBSD
+ 
+ ifeq ($(strip $(FETCH_WITH_INET6)), true)
