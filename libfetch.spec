@@ -7,6 +7,7 @@ Group:		Libraries
 Source0:	http://gogglesmm.googlecode.com/files/%{name}-%{version}-arch.tar.gz
 # Source0-md5:	256b7875cddb348d35a6a1817819a76f
 Patch0:		makefile-user-cflags.patch
+BuildRequires:	openssl-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -29,14 +30,17 @@ sed -i "s@^Q.*=.*@Q =@g" Makefile.linux
 %build
 %{__make} -f Makefile.linux \
 	USERCFLAGS="%{rpmcflags}" \
+	LDFLAGS="%{rpmcflags} %{rpmldflags}" \
 	CC="%{__cc}" \
-	LD="%{__ld}" \
+	LD="%{__cc}" \
 	AR="%{__ar}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} -f Makefile.linux install \
+	prefix="%{_prefix}" \
+	libdir="%{_libdir}" \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
@@ -47,10 +51,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
+%attr(755,root,root) %{_libdir}/libfetch.so
 
 %files devel
 %defattr(644,root,root,755)
 %{_mandir}/man3/fetch.*
-%{_libdir}/lib*.a
+%{_libdir}/libfetch.a
 %{_includedir}/fetch.h
