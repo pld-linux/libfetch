@@ -12,3 +12,23 @@
  CFLAGS	+= -DFTP_COMBINE_CWDS -DNETBSD
  
  ifeq ($(strip $(FETCH_WITH_INET6)), true)
+@@ -75,15 +76,15 @@
+ .PHONY: clean
+ 
+ install: all
+-	$(Q) $(INSTALL) -m 755 libfetch.so $(DESTDIR)$(prefix)/lib/libfetch.so
+-	$(Q) $(INSTALL) -m 644 libfetch.a $(DESTDIR)$(prefix)/lib/libfetch.a
++	$(Q) $(INSTALL) -m 755 libfetch.so $(DESTDIR)$(libdir)/libfetch.so
++	$(Q) $(INSTALL) -m 644 libfetch.a $(DESTDIR)$(libdir)/libfetch.a
+ 	$(Q) $(INSTALL) -m 644 fetch.h $(DESTDIR)$(prefix)/include/fetch.h
+ 	$(Q) $(INSTALL) -m 644 fetch.3 $(DESTDIR)$(prefix)/share/man/man3/fetch.3
+ .PHONY: install
+ 
+ uninstall:
+-	$(Q) rm -f $(DESTDIR)$(prefix)/lib/libfetch.so
+-	$(Q) rm -f $(DESTDIR)$(prefix)/lib/libfetch.a
++	$(Q) rm -f $(DESTDIR)$(libdir)/libfetch.so
++	$(Q) rm -f $(DESTDIR)$(libdir)/libfetch.a
+ 	$(Q) rm -f $(DESTDIR)$(prefix)/include/fetch.h
+ 	$(Q) rm -f $(DESTDIR)$(prefix)/share/man/man3/fetch.3
+ .PHONY: uninstall
